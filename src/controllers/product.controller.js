@@ -1,7 +1,11 @@
-const getAllProducts = (req, res, next) => {
+import productService from "../services/product.service.js";
+
+const getAllProducts = async (req, res, next) => {
   try {
+    const products = await productService.getAllProducts();
     res.status(200).json({
-      status: "success",
+      success: true,
+      data: products,
     });
   } catch (error) {
     next(error);

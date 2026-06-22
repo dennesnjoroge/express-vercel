@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
-dotenv.config();
-
+import "dotenv/config";
 import express from "express";
 import productRoutes from "./routes/product.route.js";
-import connectDB from "./config/db.js";
+import pool from "./config/db.js";
 
 const app = express();
 
@@ -15,7 +13,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", productRoutes);
-connectDB();
 
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.PORT || 5000;
