@@ -15,6 +15,13 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", productRoutes);
 
+app.use((req, res, next) => {
+  res.status(400).json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
+
 app.use((error, req, res, next) => {
   if (error instanceof AppError) {
     res.status(error.statusCode).json({
