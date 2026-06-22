@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+import productRoutes from "./routes/product.route.js";
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -8,7 +9,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/api/users");
+app.use("/api/v1", productRoutes);
 
 app.listen(5000, () => {
   console.log("server running on port 5000");
