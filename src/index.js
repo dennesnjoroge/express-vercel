@@ -1,6 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
-const app = express();
 import productRoutes from "./routes/product.route.js";
+import connectDB from "./config/db.js";
+
+const app = express();
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -10,10 +15,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", productRoutes);
+connectDB();
 
-app.listen(5000, () => {
-  console.log("server running on port 5000");
-});
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running locally on port ${PORT}`);
+  });
+}
 
-//vercel
 export default app;
