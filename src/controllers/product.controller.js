@@ -4,7 +4,7 @@ const getAllProducts = async (req, res, next) => {
   try {
     const products = await productService.getAllProducts();
     res.status(200).json({
-      success: true,
+      status: false,
       data: products,
     });
   } catch (error) {
@@ -12,12 +12,13 @@ const getAllProducts = async (req, res, next) => {
   }
 };
 
-const getProductById = (req, res, next) => {
+const getProductById = async (req, res, next) => {
   try {
     const productId = req.params.id;
+    const product = await productService.getProductById(productId);
     res.status(200).json({
       status: "success",
-      productId,
+      data: product,
     });
   } catch (error) {
     next(error);
